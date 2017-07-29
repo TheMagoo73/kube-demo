@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: hello
-          image: gumshoe/hello-server:latest
+          image: gumshoe/hello-server:abc
           ports:
             - name: http
               containerPort: 3000
