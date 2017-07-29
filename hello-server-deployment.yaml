@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hello-deployment
+spec:
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: KubeDemo
+        tier: frontend
+    spec:
+      containers:
+        - name: hello
+          image: gumshoe/hello-server:latest
+          ports:
+            - name: http
+              containerPort: 3000

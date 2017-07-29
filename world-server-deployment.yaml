@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: world-deployment
+spec:
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: KubeDemo
+        tier: backend
+    spec:
+      containers:
+        - name: world
+          image: gumshoe/world-server:latest
+          ports:
+            - name: http
+              containerPort: 2000
