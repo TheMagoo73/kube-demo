@@ -12,7 +12,7 @@ Note that the Hello-Server uses DNS to locate the World-Server, we'll see how th
 
 Each of the Node services includes the files needed to create Docker containers to run them. Just run
 
-docker build -t &lt;your tag here&gt; .
+`docker build -t &lt;your tag here&gt; .`
 
 But you don't really need to do that unless your really want to, as the images are in public Docker Hub repos at
 
@@ -24,6 +24,10 @@ The Kubernetes setup uses them when setting up the application in Kubernetes.
 ## Setting up Kubernetes
 
 You can run this demo in any Kubernetes cluster (AWS, ACS etc.) or locally using MiniKube.
+
+Deploying objects into Kubernetes is very easy, simply use Kubctl
+
+`kubectl create &lt;script name&gt;`
 
 First off, deploy all the pods that you need using the two `deployment` scripts
 
@@ -39,9 +43,14 @@ Now we need a pair of services to map the pods to a fixed IP in the cluster so t
 
 Now we have the Hello-World app fully functional app in Kubernetes - yay! The only problem is the nothing outside the Kubernetes cluster can talk to it...
 
-To fix this we need to set up an ingress service, so the outside world can talk to it. Time to run
+To fix this we need to set up an ingress service, so the outside world can talk to it. If you're running MiniKube you get an NGINX based ingester in the box, but you'll probably need to turn it on using the command
+
+`minikube addons enable ingress`
+
+If your using cloud provides, the ingress script should trigger a regular load balancer to be created and configured.
+
+Time to run
 
 * ingress.yaml
 
-
-
+From the Kubernetes dashboard, and find out what the IP of the ingress service is. Add a mapping from helloworld.io to the ingress IP in your hosts file, fire up a browser and head to `helloworld.io`, and see the power of the Hello-World app running in Kubernetes!
